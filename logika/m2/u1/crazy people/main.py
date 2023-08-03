@@ -9,9 +9,9 @@ text =QLabel()
 winner=QLabel()
 
 line=QVBoxLayout()
-line.addwidget(button, aligment=Qt.AlignCenter)
-line.addwidget(text, aligment=Qt.AlignCenter)
-line.addwidget(winner, aligment=Qt.AlignCenter)
+line.addWidget(button, alignment=Qt.AlignCenter)
+line.addWidget(text, alignment=Qt.AlignCenter)
+line.addWidget(winner, alignment=Qt.AlignCenter)
 def win():
     ran = randint(1, 1000)
     winner.setText(str(ran))

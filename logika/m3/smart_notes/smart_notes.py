@@ -63,27 +63,31 @@ def show_notes():
     
 def add_note():
     note_name, ok = QInputDialog.getText(window, 'add tag' 'tag name')
-    notes[note_name] ={'text':'', 'tags': []}
-    lst_notes.addItem(note_name)
+    if note_name and ok :
+        notes[note_name] ={'text':'', 'tags': []}
+        lst_notes.addItem(note_name)
     
 def save_note():
     if lst_notes.currentItem().text():
         key = lst_notes.currentItem().text()
         notes[key]['text']= field_text.toPlainText()
-        writef()
-    else:    
-        note_name, ok =QInputDialog.gettext(window, '', '')
+        writef()    
+    
+            
     
 def deletenote():
     if lst_notes.currentItem().text():
-        key = lst_notes.currentItem().text():
-        del notes[key]:
+        key = lst_notes.currentItem().text()
+        del notes[key]
     field_text.clear()
-    list_tags    
+    lst_tags.clear()
+    lst_notes.clear()
+    lst_notes.addItems(notes)
+    writef()    
+    
 lst_notes.itemClicked.connect(show_notes)
 btn_ncreate.clicked.connect(add_note)   
 lst_notes    
-lst_notes.addItems(notes)
 
 window.setLayout(layoute_notes)
 window.show()

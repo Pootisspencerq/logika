@@ -62,7 +62,7 @@ def show_notes():
     lst_tags.addItems(notes[key]['tags']) 
     
 def add_note():
-    note_name, ok = QInputDialog.getText(window, 'add tag' 'tag name')
+    note_name, ok = QInputDialog.getText(window, 'add note', 'note name')
     if note_name and ok :
         notes[note_name] ={'text':'', 'tags': []}
         lst_notes.addItem(note_name)
@@ -83,12 +83,54 @@ def deletenote():
     lst_tags.clear()
     lst_notes.clear()
     lst_notes.addItems(notes)
-    writef()    
+    writef() 
+       
+def add_tag():  
+    key = lst_notes.currentItem().text()
+    tag=field_tag.text()
+    notes[key]['tags'].append(tag)
     
+    lst_tags.addItem(tag)
+    field_tag.clear()
+    writef()
+    
+def deletetag():  
+    key= lst_notes.currentItem().text() 
+    tag =lst_tags.currentItem().text()
+    
+    notes[key]['tags'].remove(tag)
+    lst_tags.clear() 
+    lst_tags.addItems(notes[key]['tags']) 
+    writef()
+
+def search_tag():  
+    tag = field_tag.text()
+    if btn_nsearch_teg.text() == 'знайти':
+        firtered_notes= {}
+        for key in notes:
+            if tag in notes[key]['tags']:
+                firtered_notes  [key] = notes[key]
+        btn_nsearch_teg.setText('скинути text')
+        lst_notes.clear()
+    
+        lst_notes.addItems(firtered_notes)
+    
+    elif btn_nsearch_teg.text() == 'скинути text':
+        btn_nsearch_teg.setText('знайти')
+        lst_notes.clear()
+        lst_notes.addItems(notes)
+        field_tag.clear()
+        field_text.clear()
+        lst_tags.clear()
+btn_nsearch_teg.clicked.connect(search_tag)   
+btn_nunpin.clicked.connect(deletetag)   
+btn_ndelete.clicked.connect(deletenote) 
+btn_n_add.clicked.connect(add_tag)   
+btn_nsave.clicked.connect(save_note)
 lst_notes.itemClicked.connect(show_notes)
 btn_ncreate.clicked.connect(add_note)   
-lst_notes    
-
+lst_notes.addItems(notes)   
+# відійшов =0
 window.setLayout(layoute_notes)
 window.show()
 app.exec()

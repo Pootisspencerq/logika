@@ -131,6 +131,12 @@ lst_notes.itemClicked.connect(show_notes)
 btn_ncreate.clicked.connect(add_note)   
 lst_notes.addItems(notes)   
 # відійшов =0
+window.setStyleSheet('''
+                        background-color: rgb(255,140,0); 
+                        color: black;
+                        font-size: 20px;
+                        border: 2px solid black; 
+                        ''')
 window.setLayout(layoute_notes)
 window.show()
 app.exec()

@@ -59,7 +59,12 @@ def filter(filename):
     return result        
         
 print(filter(files))
-
+window.setStyleSheet('''
+                        background-color: rgb(0,0,255); 
+                        color: yellow;
+                        font-size: 20px;
+                        border: 2px solid black; 
+                        ''')
 
 window.setLayout(layot_editor)
 window.show()

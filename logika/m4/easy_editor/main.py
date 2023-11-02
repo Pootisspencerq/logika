@@ -92,17 +92,37 @@ class ImageProcessor():
         image_path = os.path.join(path, self.filename)   
         self.original.save(image_path)
         self.show_Image(image_path)
-         
+    def bw(self):
+        self.original = self.original.convert('L')
+        self.saveandShow()   
+    def left(self):
+        self.original = self.original.transpose(Image.ROTATE_90)
+        self.saveandShow()   
+    def right(self):
+        self.original = self.original.transpose(Image.ROTATE_270)
+        self.saveandShow()   
+    def flip(self):
+        self.original = self.original.transpose(Image.FLIP_LEFT_RIGHT)
+        self.saveandShow()   
+    def sharp(self):
+        self.original = self.original.filter(ImageFilter.SHARPEN)
+        self.saveandShow()                        
 def showChosenItem():
     filename = lst_files.currentItem().text()
     workimage.load_image(filename)
     full_path = os.path.join(workdir, filename)
     workimage.show_Image(full_path)   
 workimage = ImageProcessor()  
-    
-lst_files.currentRowChanged.connect(showChosenItem)
-btn_folder.clicked.connect(show_files) 
         
+
+    
+lst_files.itemClicked.connect(showChosenItem)
+btn_folder.clicked.connect(show_files) 
+btn_left.clicked.connect(workimage.left) 
+btn_right.clicked.connect(workimage.right)
+btn_flip.clicked.connect(workimage.flip)
+btn_sharp.clicked.connect(workimage.sharp)
+btn_bw.clicked.connect(workimage.bw)
 
 window.setStyleSheet('''
                         background-color: rgb(0,0,255); 
@@ -110,7 +130,7 @@ window.setStyleSheet('''
                         font-size: 20px;
                         border: 2px solid black; 
                         ''')
-
+window.resize(4000, 1000)
 window.setLayout(layot_editor)
 window.show()
 app.exec_()

@@ -70,10 +70,19 @@ background =scale(image.load('background.jpg'), (win_width, win_height))
 player = Player("hero.png", 5, win_height - 80, 4)
 evil = Enemy("cyborg.png", win_width - 115, win_height - 280, 3 )
 treasure =Gamesprite('treasure.png', win_width-80,win_height-80, 0)
-wall=Wall(10, 10, 200, 100)
-wall2=Wall(15, 10, 100, 200)
+wall=Wall(10, 10, 0, 200)
+wall2=Wall(400, 10, 10, 200)
+wall32=Wall(300, 300, 10, 200)
+wall12=Wall(200, 10, 10, 200)
+wall4=Wall(450, 300, 10, 300)
+wall3=Wall(100, 300, 10, 200)
+wall5=Wall(200, 300, 10, 200)
+wall20=Wall(0, 0, 700, 50)
 
-walls = [wall, wall2]
+
+
+
+walls = [wall, wall2, wall5, wall4, wall3, wall32, wall12,  wall20]
 
 
 clock = time.Clock()
@@ -104,6 +113,14 @@ while game:
         treasure.reset()
         wall.reset()
         wall2.reset()
+        wall20.reset()
+        wall4.reset()
+        wall32.reset()
+        
+        wall3.reset()
+        wall12.reset()
+        wall5.reset()
+        
         
         player.update()
         evil.update()
@@ -115,7 +132,7 @@ while game:
         if sprite.collide_rect(player, evil) or sprite.collide_rect(player, wall) :
             finish = 1
             window.blit(lose, (200, 200))
-            money_sound.play() 
+            kick_sound.play() 
         for wall in walls:
             if sprite.collide_rect(player, wall):
                 finish = True

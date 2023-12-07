@@ -108,7 +108,6 @@ while game:
             
     if not finish:
         window.blit(background, (0, 0))
-        player.reset()
         evil.reset()
         treasure.reset()
         wall.reset()
@@ -121,6 +120,7 @@ while game:
         wall12.reset()
         wall5.reset()
         
+        player.reset()
         
         player.update()
         evil.update()

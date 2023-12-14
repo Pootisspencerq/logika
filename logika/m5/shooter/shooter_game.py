@@ -49,9 +49,9 @@ win_height=500
 
 font.init()
 font1 = font.SysFont('Papyrus', 39)
-txt_lose = font1.render(f'lost: {lost}',1 (34, 34, 34) )
+txt_lose = font1.render(f'lost: {lost}', 1, (34, 34, 34) )
+txt_score = font1.render(f'score: {score}', 1, (34, 34, 34) )
 window=display.set_mode((win_width, win_height))
-window.blit(txt_lose, (10, 50))
 background =scale(image.load('galaxy.jpg'), (win_width, win_height))
 ship = Player("rocket.png", 5, win_height - 80, 80, 100, 4)
 en = sprite.Group()
@@ -69,6 +69,10 @@ while game:
     
     if not finish:
         window.blit(background, (0, 0))
+        txt_lose = font1.render(f'lost: {lost}',1, (34, 34, 34) )
+        window.blit(txt_lose, (10, 50))
+        txt_score = font1.render(f'score: {score}',1, (34, 34, 34) )
+        window.blit(txt_score, (10, 50))
         ship.reset()
         en.update()
         en.draw(window)

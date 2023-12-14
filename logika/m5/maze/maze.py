@@ -99,6 +99,10 @@ mixer.init()
 mixer_music.load("jungles.ogg")
 mixer_music.play()
 
+
+font.init()
+font1 = font.SysFont('Papyrus', 39)
+txt_lose = font1.render(f'lost: {lost}',1 (34, 34, 34) )
 money_sound = mixer.Sound('money.ogg')
 kick_sound = mixer.Sound('kick.ogg')
 while game:

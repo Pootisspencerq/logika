@@ -47,12 +47,17 @@ mixer.music.set_volume(0.7)
 win_width = 700
 win_height=500
 
+font.init()
+font1 = font.SysFont('Papyrus', 39)
+txt_lose = font1.render(f'lost: {lost}',1 (34, 34, 34) )
 window=display.set_mode((win_width, win_height))
+window.blit(txt_lose, (10, 50))
 background =scale(image.load('galaxy.jpg'), (win_width, win_height))
 ship = Player("rocket.png", 5, win_height - 80, 80, 100, 4)
-en = Sprite.groups()
+en = sprite.Group()
 for i in range(5):
-    en = Enemy("ufo.png", randint(0, win_height -80), 0, 80, 50, randint(1, 5))
+    e = Enemy("ufo.png", randint(0, win_height -80), 0, 80, 50, randint(1, 5))
+    en.add(e)
 clock = time.Clock()
 FPS = 60
 game =1

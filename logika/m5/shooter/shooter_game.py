@@ -35,8 +35,8 @@ class Enemy(Gamesprite):
         self.rect.y+= self.speed
         global lost
         if self.rect.y> win_height:
-            self.rect.x =0
-            self.rect.y+randint(- 45, 50)
+            self.rect.y =0
+            self.rect.x+randint(0, win_width - 80)
             lost =lost +1
 
 
@@ -69,10 +69,10 @@ while game:
     
     if not finish:
         window.blit(background, (0, 0))
-        txt_lose = font1.render(f'lost: {lost}',1, (34, 34, 34) )
+        txt_lose = font1.render(f'lost: {lost}',1, (255,215,0) )
         window.blit(txt_lose, (10, 50))
-        txt_score = font1.render(f'score: {score}',1, (34, 34, 34) )
-        window.blit(txt_score, (10, 50))
+        txt_score = font1.render(f'score: {score}',1, (0,0,205) )
+        window.blit(txt_score, (50, 10))
         ship.reset()
         en.update()
         en.draw(window)

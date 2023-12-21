@@ -1,4 +1,5 @@
 #Створи власний Шутер!
+from typing import Any
 from pygame import *
 from pygame.sprite import Sprite
 from pygame.transform import scale, flip
@@ -28,8 +29,8 @@ class Player(Gamesprite):
             self.rect.x += self.speed   
 
     def fire(self):
-        pass  
-      
+        bullet =Bullet('bullet.jpg', self.rect.centerx, self.rect.top, 15, 20, 15) 
+        bullets.add(bullet)
 class Enemy(Gamesprite):
     def update(self):
         self.rect.y+= self.speed
@@ -39,21 +40,27 @@ class Enemy(Gamesprite):
             self.rect.x+randint(0, win_width - 80)
             lost =lost +1
 
-
+class Bullet(Gamesprite):
+    def update(self):
+        self.rect.y -= self.speed
+        if self.rect.y <0:
+            self.kill()
 mixer.init()
 mixer_music.load("space.ogg")
 mixer_music.play(-1)
 mixer.music.set_volume(0.7)
+fire_sound = mixer.Sound('fire.ogg')
 win_width = 700
 win_height=500
 
 font.init()
-font1 = font.SysFont('Papyrus', 39)
+font1 = font.SysFont('comic sans', 39)
 txt_lose = font1.render(f'lost: {lost}', 1, (34, 34, 34) )
 txt_score = font1.render(f'score: {score}', 1, (34, 34, 34) )
 window=display.set_mode((win_width, win_height))
 background =scale(image.load('galaxy.jpg'), (win_width, win_height))
 ship = Player("rocket.png", 5, win_height - 80, 80, 100, 4)
+bullets = sprite.Group()
 en = sprite.Group()
 for i in range(5):
     e = Enemy("ufo.png", randint(0, win_height -80), 0, 80, 50, randint(1, 5))
@@ -66,17 +73,23 @@ while game:
     for e in event.get():
         if e.type ==QUIT:
             game = 0    
-    
+        if e.type == KEYDOWN:
+            if e.key == K_SPACE:
+                ship.fire()
     if not finish:
         window.blit(background, (0, 0))
         txt_lose = font1.render(f'lost: {lost}',1, (255,215,0) )
         window.blit(txt_lose, (10, 50))
         txt_score = font1.render(f'score: {score}',1, (0,0,205) )
-        window.blit(txt_score, (50, 10))
+        window.blit(txt_score, (10, 10))
         ship.reset()
         en.update()
         en.draw(window)
         ship.update()
+        bullets.draw(window)
+        
+        bullets.update()
+       
         
         
     

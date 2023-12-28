@@ -55,6 +55,9 @@ win_height=500
 
 font.init()
 font1 = font.SysFont('comic sans', 39)
+font2 = font.SysFont('papyrus', 39)
+txt_lose_game = font2.render("YOU ARE AN IDIOT!!!", 1, (121, 0, 0))
+txt_win_game = font2.render("YOU WIN!!!", 1, (0, 159, 74))
 txt_lose = font1.render(f'lost: {lost}', 1, (34, 34, 34) )
 txt_score = font1.render(f'score: {score}', 1, (34, 34, 34) )
 window=display.set_mode((win_width, win_height))
@@ -91,21 +94,34 @@ while game:
         bullets.update()
        
         
+        if (sprite.spritecollide(ship, en, 0)):
+            finish = 1
+            window.blit(txt_lose_game, (100, 50))
+    
+    
+        collides =sprite.groupcollide(en, bullets, 1, 1)
+        for c in collides:
+                e = Enemy("ufo.png", randint(0, win_height -80), 0, 80, 50, randint(1, 5))
+                en.add(e)
+                score = score +1
+        if score == 10:
+            finish = 1
+            window.blit(txt_win_game, (50, 250))
+    else:
+        finish = 0
+        score = 0 
+        lost = 0
+    
+        for b in bullets:
+            b.kill()
+            
+        for e in en:
+            e.kill()
         
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
+        time.delay(3000)
+        for i in range(5):
+            e = Enemy("ufo.png", randint(0, win_height -80), 0, 80, 50, randint(1, 5))
+            en.add(e)
     
     display.update()
     clock.tick(FPS)

@@ -46,10 +46,11 @@ class Bullet(Gamesprite):
         if self.rect.y <0:
             self.kill()
 mixer.init()
-mixer_music.load("space.ogg")
+mixer_music.load("space.mp3")
 mixer_music.play(-1)
 mixer.music.set_volume(0.7)
 fire_sound = mixer.Sound('fire.ogg')
+
 win_width = 700
 win_height=500
 
@@ -79,6 +80,7 @@ while game:
         if e.type == KEYDOWN:
             if e.key == K_SPACE:
                 ship.fire()
+                fire_sound.play()
     if not finish:
         window.blit(background, (0, 0))
         txt_lose = font1.render(f'lost: {lost}',1, (255,215,0) )
